@@ -3,11 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationAPI", "src\ValidationAPI\ValidationAPI.csproj", "{9222E9E4-38B9-4A4F-8A31-997F9B813CD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValidationAPI", "src\ValidationAPI\ValidationAPI.csproj", "{9222E9E4-38B9-4A4F-8A31-997F9B813CD4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebUI", "src\WebUI\WebUI.csproj", "{A18607E4-C0CD-4EEC-9EF5-C1B5ACBFFF71}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebUI", "src\WebUI\WebUI.csproj", "{A18607E4-C0CD-4EEC-9EF5-C1B5ACBFFF71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleUI", "src\ConsoleUI\ConsoleUI.csproj", "{E0B4289D-5713-433C-964E-799670120B93}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleUI", "src\ConsoleUI\ConsoleUI.csproj", "{E0B4289D-5713-433C-964E-799670120B93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ValidationAPITests", "tests\ValidationAPITests\ValidationAPITests.csproj", "{E15C45B5-D211-446B-ABD4-D8BBA3BEAECE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{E0B4289D-5713-433C-964E-799670120B93}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0B4289D-5713-433C-964E-799670120B93}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0B4289D-5713-433C-964E-799670120B93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E15C45B5-D211-446B-ABD4-D8BBA3BEAECE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E15C45B5-D211-446B-ABD4-D8BBA3BEAECE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E15C45B5-D211-446B-ABD4-D8BBA3BEAECE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E15C45B5-D211-446B-ABD4-D8BBA3BEAECE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
