@@ -14,11 +14,11 @@ namespace CustomerAddApi.Controllers
 	[Route("api/[controller]")]
 	public class CustomerController : ControllerBase
 	{
-		private readonly UspsAddressValidator addressValidator;
+		private readonly IUspsAddressValidator addressValidator;
 		private readonly ICrmRepository crm;
 		private readonly ILogger<CustomerController> logger;
 
-		public CustomerController(ILogger<CustomerController> logger, UspsAddressValidator addressValidator, ICrmRepository crm)
+		public CustomerController(ILogger<CustomerController> logger, IUspsAddressValidator addressValidator, ICrmRepository crm)
 		{
 			this.logger = logger;
 			this.addressValidator = addressValidator;
@@ -28,6 +28,13 @@ namespace CustomerAddApi.Controllers
 		[HttpPost]
 		public async Task<ActionResult<CustomerDTO>> AddCustomer([FromBody] CustomerDTO customer)
 		{
+			if (!ModelState.IsValid)
+			{
+				// Apparently the ApiController attribute does this automatically,
+				// but it won't work with the tests so we'll manually handle it.
+				return BadRequest(ModelState);
+			}
+
 			var coreCustomer = customer.ToCustomer();
 
 			if (coreCustomer is not null)

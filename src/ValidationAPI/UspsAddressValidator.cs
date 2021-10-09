@@ -18,7 +18,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace AddressValidation
 {
-	public class UspsAddressValidator
+	public class UspsAddressValidator : IUspsAddressValidator
 	{
 		private readonly HttpClient client;
 		private readonly string userId;
@@ -31,27 +31,6 @@ namespace AddressValidation
 			};
 
 			userId = config.GetConnectionString("UspsUserId");
-		}
-
-		public static T DeserializeFromXmlString<T>(string text)
-		{
-			var serializer = new XmlSerializer(typeof(T));
-
-			using var writer = new StringReader(text);
-			var obj = (T)serializer.Deserialize(writer);
-
-			return obj;
-		}
-
-		public static string SerializeToXmlString<T>(T objectToSerialize)
-		{
-			var sb = new StringBuilder();
-			using var writer = XmlWriter.Create(sb);
-
-			var serializer = new XmlSerializer(typeof(T));
-			serializer.Serialize(writer, objectToSerialize);
-
-			return sb.ToString();
 		}
 
 		public async Task<Customer> ValidateCustomerAddressAsync(Customer customer)
@@ -85,6 +64,27 @@ namespace AddressValidation
 			}
 
 			return customer;
+		}
+
+		private static T DeserializeFromXmlString<T>(string text)
+		{
+			var serializer = new XmlSerializer(typeof(T));
+
+			using var writer = new StringReader(text);
+			var obj = (T)serializer.Deserialize(writer);
+
+			return obj;
+		}
+
+		private static string SerializeToXmlString<T>(T objectToSerialize)
+		{
+			var sb = new StringBuilder();
+			using var writer = XmlWriter.Create(sb);
+
+			var serializer = new XmlSerializer(typeof(T));
+			serializer.Serialize(writer, objectToSerialize);
+
+			return sb.ToString();
 		}
 
 		/// <summary>
