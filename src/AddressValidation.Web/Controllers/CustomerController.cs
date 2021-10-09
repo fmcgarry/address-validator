@@ -25,30 +25,42 @@ namespace AddressValidation.Web.Controllers
 		[HttpPost]
 		public async Task<ActionResult<CustomerDTO>> AddCustomer([FromBody] CustomerDTO customer)
 		{
-			if (!ModelState.IsValid)
+			try
 			{
-				// Apparently the ApiController attribute does this automatically,
-				// but it won't work with the tests so we'll manually handle it.
-				return BadRequest(ModelState);
+				if (!ModelState.IsValid)
+				{
+					// Apparently the ApiController attribute does this automatically,
+					// but it won't work with the tests so we'll manually handle it.
+					return BadRequest(ModelState);
+				}
+
+				var coreCustomer = customer.ToCustomer();
+
+				if (coreCustomer is not null)
+				{
+					await addressValidator.ValidateAsync(coreCustomer);
+					await addressValidator.AddCustomerToCrm(coreCustomer);
+
+					// should actually return 201 status code, but no Get method is implemented.
+					// return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
+					return Ok(coreCustomer);
+				}
+				else
+				{
+					return GenerateUnexpencedErrorResponse($"Failed to convert {nameof(CustomerDTO)} to {nameof(AddressValidation.Core.Models.Customer)}");
+				}
 			}
-
-			var coreCustomer = customer.ToCustomer();
-
-			if (coreCustomer is not null)
+			catch (System.Exception e)
 			{
-				await addressValidator.ValidateAsync(coreCustomer);
-				await addressValidator.AddCustomerToCrm(coreCustomer);
-
-				// should actually return 201 status code, but no Get method is implemented.
-				// return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
-				return Ok(coreCustomer);
+				// TODO: Add an actual error page: https://docs.microsoft.com/en-us/aspnet/core/web-api/handle-errors?view=aspnetcore-5.0
+				return GenerateUnexpencedErrorResponse(e.ToString());
 			}
-			else
-			{
-				logger.LogError($"Failed to convert {nameof(CustomerDTO)} to {nameof(AddressValidation.Core.Models.Customer)}");
-			}
+		}
 
-			return new JsonResult("Something went wrong.") { StatusCode = 500 };
+		private JsonResult GenerateUnexpencedErrorResponse(string logMessage)
+		{
+			logger.LogError(logMessage);
+			return new JsonResult("An unexpected error has occurred.") { StatusCode = 500 };
 		}
 	}
 }
