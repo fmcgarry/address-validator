@@ -14,7 +14,7 @@ using Moq;
 namespace ValidationAPITests
 {
 	[TestClass]
-	public class ValidAddressTests
+	public class CustomerControllerTests
 	{
 		[TestMethod]
 		public async Task Post_ModelStateInvalid_ReturnsBadRequestResult()
