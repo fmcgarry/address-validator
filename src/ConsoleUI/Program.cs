@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http;
 
 namespace ConsoleUI
 {
@@ -6,7 +7,11 @@ namespace ConsoleUI
 	{
 		private static void Main(string[] args)
 		{
-			Console.WriteLine("Hello World!");
+			ValidationAPI.Core core = new ValidationAPI.Core();
+
+			core.Run();
+
+			Console.ReadKey();
 		}
 	}
 }
