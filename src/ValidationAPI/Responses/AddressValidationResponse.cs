@@ -13,7 +13,5 @@ namespace AddressValidation.Responses
 	{
 		[XmlElement(ElementName = "Address")]
 		public Address Address { get; set; }
-
-		//public bool IsValid => Address.Error is null;
 	}
 }

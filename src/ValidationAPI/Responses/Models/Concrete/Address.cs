@@ -53,6 +53,8 @@ namespace AddressValidation.Responses.Models.Concrete
 		[XmlElement(ElementName = "ID")]
 		public int ID { get; set; }
 
+		public bool IsValid => Error is null;
+
 		[XmlElement(ElementName = "State")]
 		public string State { get; set; } = "";
 

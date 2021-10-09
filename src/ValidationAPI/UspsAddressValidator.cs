@@ -70,11 +70,12 @@ namespace AddressValidation
 			};
 
 			string rawRequest = SerializeToXmlString(request);
+
 			string rawResponse = await SendRequestAsync(rawRequest);
 
 			AddressValidateResponse response = DeserializeFromXmlString<AddressValidateResponse>(rawResponse);
 
-			if (response.Address.Error is null)
+			if (response.Address.IsValid)
 			{
 				customer.Address.City = response.Address.City;
 				customer.Address.Line1 = response.Address.Address2;
