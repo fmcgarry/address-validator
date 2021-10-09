@@ -7,7 +7,7 @@ using AddressValidation.Core.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace CustomerAddApi.Controllers
+namespace AddressValidation.Web.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]

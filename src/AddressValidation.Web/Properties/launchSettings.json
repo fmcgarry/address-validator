@@ -17,7 +17,7 @@
 				"ASPNETCORE_ENVIRONMENT": "Development"
 			}
 		},
-		"CustomerAddApi": {
+		"AddressValidation.Web": {
 			"commandName": "Project",
 			"dotnetRunMessages": "true",
 			"launchBrowser": true,

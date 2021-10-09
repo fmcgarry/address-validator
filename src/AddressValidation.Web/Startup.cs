@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 
-namespace CustomerAddApi
+namespace AddressValidation.Web
 {
 	public class Startup
 	{
@@ -25,7 +25,7 @@ namespace CustomerAddApi
 			{
 				app.UseDeveloperExceptionPage();
 				app.UseSwagger();
-				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CustomerAddApi v1"));
+				app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AddressValidation.Web v1"));
 			}
 			app.UseHttpsRedirection();
 			app.UseRouting();
@@ -46,7 +46,7 @@ namespace CustomerAddApi
 				});
 			services.AddSwaggerGen(c =>
 			{
-				c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerAddApi", Version = "v1" });
+				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AddressValidation.Web", Version = "v1" });
 			});
 			services.AddTransient<IAddressValidator, AddressValidation.Core.AddressValidator>();
 			services.AddSingleton(Configuration);

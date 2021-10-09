@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
-namespace CustomerAddApi
+namespace AddressValidation.Web
 {
 	public class Program
 	{
