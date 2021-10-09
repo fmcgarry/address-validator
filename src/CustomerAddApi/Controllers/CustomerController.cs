@@ -11,12 +11,12 @@ namespace CustomerAddApi.Controllers
 {
 	[ApiController]
 	[Route("api/[controller]")]
-	public class AddCustomerController : ControllerBase
+	public class CustomerController : ControllerBase
 	{
 		private readonly UspsAddressValidator addressValidator;
-		private readonly ILogger<AddCustomerController> logger;
+		private readonly ILogger<CustomerController> logger;
 
-		public AddCustomerController(ILogger<AddCustomerController> logger, UspsAddressValidator addressValidator)
+		public CustomerController(ILogger<CustomerController> logger, UspsAddressValidator addressValidator)
 		{
 			this.logger = logger;
 			this.addressValidator = addressValidator;
