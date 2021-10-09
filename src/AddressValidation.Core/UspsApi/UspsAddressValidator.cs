@@ -20,17 +20,14 @@ namespace AddressValidation.Core.UspsApi
 {
 	public class UspsAddressValidator : IUspsAddressValidator
 	{
-		private readonly HttpClient client;
+		private static readonly HttpClient client = new();
+		private readonly IConfiguration config;
 		private readonly string userId;
 
 		public UspsAddressValidator(IConfiguration config)
 		{
-			client = new HttpClient()
-			{
-				BaseAddress = new Uri("https://secure.shippingapis.com")
-			};
-
-			userId = config.GetConnectionString("UspsUserId");
+			this.config = config;
+			userId = this.config.GetConnectionString("UspsUserId");
 		}
 
 		public async Task<Customer> ValidateCustomerAddressAsync(Customer customer)
@@ -97,7 +94,7 @@ namespace AddressValidation.Core.UspsApi
 		{
 			try
 			{
-				HttpResponseMessage response = await client.GetAsync($"?API=Verify&XML={WebUtility.UrlEncode(destination)}");
+				HttpResponseMessage response = await client.GetAsync(config.GetConnectionString("UspsEndpoint") + WebUtility.UrlEncode(destination));
 
 				var quoteResponse = await response.Content.ReadAsStringAsync();
 				return quoteResponse;
