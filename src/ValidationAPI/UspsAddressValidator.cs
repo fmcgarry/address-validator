@@ -32,7 +32,7 @@ namespace AddressValidation
 			this.userId = userId;
 		}
 
-		public T DeserializeFromXmlString<T>(string text)
+		public static T DeserializeFromXmlString<T>(string text)
 		{
 			var serializer = new XmlSerializer(typeof(T));
 
@@ -42,7 +42,7 @@ namespace AddressValidation
 			return obj;
 		}
 
-		public string SerializeToXmlString<T>(T objectToSerialize)
+		public static string SerializeToXmlString<T>(T objectToSerialize)
 		{
 			var sb = new StringBuilder();
 			using var writer = XmlWriter.Create(sb);
@@ -84,77 +84,7 @@ namespace AddressValidation
 			}
 
 			return customer;
-
-			//var response2 = await SendRequestAsync(request);
 		}
-
-		//public string SerializeToXml<T>(T objectToSerialize)
-		//{
-		//	var namespaces = new XmlSerializerNamespaces();
-		//	namespaces.Add("", "");
-
-		//	var settings = new XmlWriterSettings { OmitXmlDeclaration = true };
-
-		//	var sb = new StringBuilder();
-		//	using var writer = XmlWriter.Create(sb, settings);
-
-		//	var serializer = new XmlSerializer(typeof(T));
-		//	serializer.Serialize(writer, objectToSerialize, namespaces);
-
-		//	return sb.ToString();
-		//}
-		/// <summary>
-		/// Send a REST call to the provided destination.
-		/// </summary>
-		/// <typeparam name="T">The response type.</typeparam>
-		/// <param name="destination">The url of the REST call.</param>
-		/// <returns>Task with result type T.</returns>
-		private async Task<U> SendRequestAsync<T, U>(T request)
-		{
-			try
-			{
-				//var asdf = System.Net.WebUtility.UrlEncode(destination);
-				//var response = await client.GetAsync(destination);
-
-				HttpResponseMessage response = await client.PostAsXmlAsync(new Uri("https://secure.shippingapis.com?API=Verify&XML="), request);
-				response.EnsureSuccessStatusCode();
-
-				var afds = await response.Content.ReadAsStringAsync();
-
-				U quoteResponse = await response.Content.ReadAsAsync<U>();
-				return quoteResponse;
-			}
-			catch (HttpRequestException e)
-			{
-				Console.WriteLine(e);
-				throw;
-			}
-		}
-
-		///// <summary>
-		///// Send a REST call to the provided destination.
-		///// </summary>
-		///// <typeparam name="T">The response type.</typeparam>
-		///// <param name="destination">The url of the REST call.</param>
-		///// <returns>Task with result type T.</returns>
-		//private async Task<string> SendRequestAsync<T>(T destination)
-		//{
-		//	try
-		//	{
-		//		HttpResponseMessage response = await client.PostAsXmlAsync(client.BaseAddress + "?API=Verify&XML=", destination);
-
-		//		response.RequestMessage
-		//		response.EnsureSuccessStatusCode();
-
-		//		var quoteResponse = await response.Content.ReadAsStringAsync();
-		//		return quoteResponse;
-		//	}
-		//	catch (Exception e)
-		//	{
-		//		Console.WriteLine(e);
-		//		throw;
-		//	}
-		//}
 
 		/// <summary>
 		/// Send a REST call to the provided destination.
