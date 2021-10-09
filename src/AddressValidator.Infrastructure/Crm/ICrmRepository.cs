@@ -7,7 +7,7 @@ using AddressValidation.Core.Models;
 
 namespace AddressValidator.Infrastructure
 {
-	internal interface ICrmRepository
+	public interface ICrmRepository
 	{
 		Task UpsertCustomer(Customer customer);
 	}
