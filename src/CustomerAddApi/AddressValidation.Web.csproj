@@ -9,6 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AddressValidator.Infrastructure\AddressValidator.Infrastructure.csproj" />
     <ProjectReference Include="..\ValidationAPI\AddressValidation.Core.csproj" />
   </ItemGroup>
 
