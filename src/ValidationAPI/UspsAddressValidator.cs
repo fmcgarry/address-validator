@@ -14,6 +14,7 @@ using AddressValidation.Models.Concrete;
 using AddressValidation.Requests;
 using AddressValidation.Responses;
 using AddressValidation.Core.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace AddressValidation
 {
@@ -22,14 +23,14 @@ namespace AddressValidation
 		private readonly HttpClient client;
 		private readonly string userId;
 
-		public UspsAddressValidator(string userId = "775SELF04801")
+		public UspsAddressValidator(IConfiguration config)
 		{
 			client = new HttpClient()
 			{
 				BaseAddress = new Uri("https://secure.shippingapis.com")
 			};
 
-			this.userId = userId;
+			userId = config.GetConnectionString("UspsUserId");
 		}
 
 		public static T DeserializeFromXmlString<T>(string text)

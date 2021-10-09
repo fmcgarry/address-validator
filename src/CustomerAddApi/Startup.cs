@@ -48,6 +48,7 @@ namespace CustomerAddApi
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerAddApi", Version = "v1" });
 			});
 			services.AddSingleton<AddressValidation.UspsAddressValidator>();
+			services.AddSingleton(Configuration);
 			services.AddTransient<ICrmRepository, CrmRepository>();
 		}
 	}
