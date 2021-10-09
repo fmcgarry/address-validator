@@ -17,7 +17,7 @@ namespace ValidationAPITests
 	public class CustomerControllerTests
 	{
 		[TestMethod]
-		public async Task Post_ModelStateInvalid_ReturnsBadRequestResult()
+		public async Task PostModelStateInvalid_ReturnsBadRequestResult()
 		{
 			var customer = new CustomerDTO();
 			var mockLogger = new Mock<ILogger<CustomerController>>();
@@ -32,7 +32,7 @@ namespace ValidationAPITests
 		}
 
 		[TestMethod]
-		public async Task Post_ValidModelState_ReturnsOkObjectResult()
+		public async Task PostValidModelState_ReturnsOkObjectResult()
 		{
 			var customer = new CustomerDTO()
 			{
