@@ -2,9 +2,9 @@
 
 namespace AddressValidation.Web.Models
 {
-	public class Customer
+	public class CustomerDTO
 	{
-		public Address Address { get; set; }
+		public AddressDTO Address { get; set; }
 
 		[Required]
 		public string CustomerEmail { get; set; }

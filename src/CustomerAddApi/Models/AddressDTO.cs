@@ -1,6 +1,6 @@
 ﻿namespace AddressValidation.Web.Models
 {
-	public class Address
+	public class AddressDTO
 	{
 		public string City { get; set; }
 		public string Country { get; set; }

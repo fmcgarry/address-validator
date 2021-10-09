@@ -8,7 +8,7 @@ namespace AddressValidation.Web.Converters
 {
 	public static class ModelConverters
 	{
-		public static Core.Models.Address? ToCoreAddress(this Models.Address address)
+		public static Core.Models.Address? ToAddress(this Models.AddressDTO address)
 		{
 			try
 			{
@@ -21,13 +21,13 @@ namespace AddressValidation.Web.Converters
 					State = address.State
 				};
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				return null;
 			}
 		}
 
-		public static Core.Models.Customer? ToCoreCustomer(this Models.Customer customer)
+		public static Core.Models.Customer? ToCustomer(this Models.CustomerDTO customer)
 		{
 			try
 			{
@@ -35,10 +35,10 @@ namespace AddressValidation.Web.Converters
 				{
 					CustomerName = customer.CustomerName,
 					CustomerEmail = customer.CustomerEmail,
-					Address = customer.Address.ToCoreAddress()
+					Address = customer.Address.ToAddress()
 				};
 			}
-			catch (Exception e)
+			catch (Exception)
 			{
 				return null;
 			}

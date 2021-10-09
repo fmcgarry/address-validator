@@ -23,18 +23,21 @@ namespace CustomerAddApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<Customer>> Post([FromBody] Customer customer)
+		public async Task<ActionResult<CustomerDTO>> Post([FromBody] CustomerDTO customer)
 		{
-			if (ModelState.IsValid)
-			{
-				var coreCustomer = customer.ToCoreCustomer();
+			var coreCustomer = customer.ToCustomer();
 
-				if (coreCustomer is not null)
-				{
-					await addressValidator.ValidateCustomerAddressAsync(coreCustomer);
-					return Ok(coreCustomer); // should actually return 201 status code, but no Get method is implemented.
-																	 //return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
-				}
+			if (coreCustomer is not null)
+			{
+				await addressValidator.ValidateCustomerAddressAsync(coreCustomer);
+
+				// should actually return 201 status code, but no Get method is implemented.
+				// return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
+				return Ok(coreCustomer);
+			}
+			else
+			{
+				logger.LogError($"Failed to convert {nameof(CustomerDTO)} to {nameof(AddressValidation.Core.Models.Customer)}");
 			}
 
 			return new JsonResult("Something went wrong.") { StatusCode = 500 };
