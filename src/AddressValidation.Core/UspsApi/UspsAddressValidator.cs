@@ -84,12 +84,6 @@ namespace AddressValidation.Core.UspsApi
 			return sb.ToString();
 		}
 
-		/// <summary>
-		/// Send a REST call to the provided destination.
-		/// </summary>
-		/// <typeparam name="T">The response type.</typeparam>
-		/// <param name="destination">The url of the REST call.</param>
-		/// <returns>Task with result type T.</returns>
 		private async Task<string> SendRequestAsync(string destination)
 		{
 			try
