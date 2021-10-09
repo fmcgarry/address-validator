@@ -32,7 +32,8 @@ namespace CustomerAddApi.Controllers
 				if (coreCustomer is not null)
 				{
 					await addressValidator.ValidateCustomerAddressAsync(coreCustomer);
-					return Ok(coreCustomer);
+					return Ok(coreCustomer); // should actually return 201 status code, but no Get method is implemented.
+																	 //return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);
 				}
 			}
 
