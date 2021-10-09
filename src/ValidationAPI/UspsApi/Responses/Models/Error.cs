@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 
-namespace AddressValidation.Core.Responses.Models.Concrete
+namespace AddressValidation.Core.UspsApi.Responses.Models
 {
 	[XmlRoot(ElementName = "Error")]
 	public class Error

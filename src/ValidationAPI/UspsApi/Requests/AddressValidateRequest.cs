@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
-using AddressValidation.Models.Concrete;
+using AddressValidation.Core.UspsApi.Requests.Models;
 
-namespace AddressValidation.Requests
+namespace AddressValidation.Core.UspsApi.Requests
 {
 	[XmlRoot(ElementName = "AddressValidateRequest")]
 	public class AddressValidateRequest

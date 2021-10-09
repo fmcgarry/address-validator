@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using AddressValidation.Core.Models;
 
-namespace AddressValidation
+namespace AddressValidator.Infrastructure.UspsApi.Interfaces
 {
 	public interface IUspsAddressValidator
 	{

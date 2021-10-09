@@ -1,4 +1,5 @@
-using AddressValidator.Infrastructure;
+using AddressValidation.Core.Interfaces;
+using AddressValidation.Core.UspsApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -47,9 +48,8 @@ namespace CustomerAddApi
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "CustomerAddApi", Version = "v1" });
 			});
-			services.AddSingleton<AddressValidation.IUspsAddressValidator, AddressValidation.UspsAddressValidator>();
+			services.AddTransient<IAddressValidator, AddressValidation.Core.AddressValidator>();
 			services.AddSingleton(Configuration);
-			services.AddTransient<ICrmRepository, CrmRepository>();
 		}
 	}
 }

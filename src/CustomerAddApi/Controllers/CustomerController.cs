@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using AddressValidation;
 using AddressValidation.Web.Models;
 using AddressValidation.Web.Converters;
-using AddressValidator.Infrastructure;
+using AddressValidation.Core.Interfaces;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,15 +13,13 @@ namespace CustomerAddApi.Controllers
 	[Route("api/[controller]")]
 	public class CustomerController : ControllerBase
 	{
-		private readonly IUspsAddressValidator addressValidator;
-		private readonly ICrmRepository crm;
+		private readonly IAddressValidator addressValidator;
 		private readonly ILogger<CustomerController> logger;
 
-		public CustomerController(ILogger<CustomerController> logger, IUspsAddressValidator addressValidator, ICrmRepository crm)
+		public CustomerController(ILogger<CustomerController> logger, IAddressValidator addressValidator)
 		{
 			this.logger = logger;
 			this.addressValidator = addressValidator;
-			this.crm = crm;
 		}
 
 		[HttpPost]
@@ -39,8 +36,8 @@ namespace CustomerAddApi.Controllers
 
 			if (coreCustomer is not null)
 			{
-				await addressValidator.ValidateCustomerAddressAsync(coreCustomer);
-				await crm.UpsertCustomer(coreCustomer);
+				await addressValidator.ValidateAsync(coreCustomer);
+				await addressValidator.AddCustomerToCrm(coreCustomer);
 
 				// should actually return 201 status code, but no Get method is implemented.
 				// return CreatedAtAction(nameof(GetById), new { id = customer.Id }, customer);

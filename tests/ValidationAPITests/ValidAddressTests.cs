@@ -1,9 +1,10 @@
 using System.Threading.Tasks;
-using AddressValidation;
+using AddressValidation.Core.Interfaces;
 using AddressValidation.Core.Models;
 using AddressValidation.Web.Converters;
 using AddressValidation.Web.Models;
-using AddressValidator.Infrastructure;
+using AddressValidator.Core;
+using AddressValidator.Core.UspsApi.Interfaces;
 using CustomerAddApi.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,11 +21,8 @@ namespace ValidationAPITests
 		{
 			var customer = new CustomerDTO();
 			var mockLogger = new Mock<ILogger<CustomerController>>();
-			var mockRepo = new Mock<ICrmRepository>();
-			var mockUspsApi = new Mock<IUspsAddressValidator>();
-			mockUspsApi.Setup(x => x.ValidateCustomerAddressAsync(It.IsAny<Customer>())).Returns(Task.FromResult(customer.ToCustomer()));
-
-			var controller = new CustomerController(mockLogger.Object, mockUspsApi.Object, mockRepo.Object);
+			var mockAddressValidator = new Mock<IAddressValidator>();
+			var controller = new CustomerController(mockLogger.Object, mockAddressValidator.Object);
 			controller.ModelState.AddModelError("CustomerName", "Required");
 
 			ActionResult<CustomerDTO> result = await controller.AddCustomer(customer);
@@ -51,11 +49,8 @@ namespace ValidationAPITests
 			};
 
 			var mockLogger = new Mock<ILogger<CustomerController>>();
-			var mockRepo = new Mock<ICrmRepository>();
-			var mockUspsApi = new Mock<IUspsAddressValidator>();
-			mockUspsApi.Setup(x => x.ValidateCustomerAddressAsync(It.IsAny<Customer>())).Returns(Task.FromResult(customer.ToCustomer()));
-
-			var controller = new CustomerController(mockLogger.Object, mockUspsApi.Object, mockRepo.Object);
+			var mockAddressValidator = new Mock<IAddressValidator>();
+			var controller = new CustomerController(mockLogger.Object, mockAddressValidator.Object);
 
 			ActionResult<CustomerDTO> result = await controller.AddCustomer(customer);
 

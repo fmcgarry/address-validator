@@ -1,7 +1,6 @@
 ﻿using System.Xml.Serialization;
-using AddressValidation.Core.Responses.Models.Concrete;
 
-namespace AddressValidation.Responses.Models.Concrete
+namespace AddressValidator.Infrastructure.UspsApi.Responses.Models
 {
 	[XmlRoot(ElementName = "Address")]
 	public class Address

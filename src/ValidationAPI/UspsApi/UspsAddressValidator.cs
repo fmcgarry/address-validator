@@ -10,13 +10,13 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using AddressValidation.Models.Concrete;
-using AddressValidation.Requests;
-using AddressValidation.Responses;
 using AddressValidation.Core.Models;
 using Microsoft.Extensions.Configuration;
+using AddressValidator.Core.UspsApi.Interfaces;
+using AddressValidation.Core.UspsApi.Responses;
+using AddressValidation.Core.UspsApi.Requests;
 
-namespace AddressValidation
+namespace AddressValidation.Core.UspsApi
 {
 	public class UspsAddressValidator : IUspsAddressValidator
 	{
@@ -39,7 +39,7 @@ namespace AddressValidation
 			{
 				UserId = userId,
 				Revision = 1,
-				Address = new Models.Concrete.Address()
+				Address = new Requests.Models.Address()
 				{
 					Id = 0,
 					Address1 = customer.Address.Line1,

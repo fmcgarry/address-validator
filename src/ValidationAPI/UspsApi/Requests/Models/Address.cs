@@ -1,10 +1,9 @@
 ﻿using System.Xml.Serialization;
-using AddressValidation.Models.Interfaces;
 
-namespace AddressValidation.Models.Concrete
+namespace AddressValidation.Core.UspsApi.Requests.Models
 {
 	[XmlRoot(ElementName = "Address")]
-	public class Address : IAddress
+	public class Address
 	{
 		[XmlElement(ElementName = "Address1", Order = 2)]
 		public string Address1 { get; set; } = "";
