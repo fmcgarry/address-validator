@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 using AddressValidation.Core.Models;
 using Microsoft.Extensions.Logging;
 
-namespace AddressValidator.Core
+namespace AddressValidation.Core.Crm
 {
 	public class CrmRepository : ICrmRepository
 	{

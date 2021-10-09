@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AddressValidation.Core.Models;
 
-namespace AddressValidator.Core
+namespace AddressValidation.Core.Crm
 {
 	public interface ICrmRepository
 	{

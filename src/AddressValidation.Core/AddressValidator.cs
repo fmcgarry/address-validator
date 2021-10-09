@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AddressValidation.Core.Crm;
 using AddressValidation.Core.Interfaces;
 using AddressValidation.Core.Models;
-using AddressValidator.Core;
 using AddressValidator.Core.UspsApi.Interfaces;
 
 namespace AddressValidation.Core

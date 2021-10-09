@@ -1,5 +1,7 @@
+using AddressValidation.Core.Crm;
 using AddressValidation.Core.Interfaces;
 using AddressValidation.Core.UspsApi;
+using AddressValidator.Core.UspsApi.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -48,7 +50,10 @@ namespace AddressValidation.Web
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AddressValidation.Web", Version = "v1" });
 			});
-			services.AddTransient<IAddressValidator, AddressValidation.Core.AddressValidator>();
+			services.AddTransient<IAddressValidator, Core.AddressValidator>();
+			services.AddTransient<ICrmRepository, CrmRepository>();
+			services.AddTransient<ICrmRepository, CrmRepository>();
+			services.AddTransient<IUspsAddressValidator, UspsAddressValidator>();
 			services.AddSingleton(Configuration);
 		}
 	}
