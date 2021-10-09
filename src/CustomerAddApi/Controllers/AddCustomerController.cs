@@ -23,7 +23,7 @@ namespace CustomerAddApi.Controllers
 		}
 
 		[HttpPost]
-		public async Task<ActionResult<CustomerDTO>> Post([FromBody] CustomerDTO customer)
+		public async Task<ActionResult<CustomerDTO>> AddCustomer([FromBody] CustomerDTO customer)
 		{
 			var coreCustomer = customer.ToCustomer();
 
