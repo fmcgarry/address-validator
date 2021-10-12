@@ -1,3 +1,4 @@
+using System;
 using AddressValidation.Core.Crm;
 using AddressValidation.Core.Interfaces;
 using AddressValidation.Core.UspsApi;
@@ -42,15 +43,19 @@ namespace AddressValidation.Web
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllers()
-				.AddJsonOptions(configure =>
-				{
-					configure.JsonSerializerOptions.AllowTrailingCommas = true;
-				});
+			.AddJsonOptions(configure =>
+			{
+				configure.JsonSerializerOptions.AllowTrailingCommas = true;
+			});
 			services.AddSwaggerGen(c =>
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AddressValidation.Web", Version = "v1" });
 			});
-			services.AddHttpClient();
+			services.AddHttpClient(UspsAddressValidator.HttpClientName, c =>
+			{
+				c.BaseAddress = new Uri(Configuration.GetConnectionString("UspsEndpoint"));
+			});
+
 			services.AddTransient<IAddressValidator, Core.AddressValidator>();
 			services.AddTransient<ICrmRepository, CrmRepository>();
 			services.AddTransient<ICrmRepository, CrmRepository>();

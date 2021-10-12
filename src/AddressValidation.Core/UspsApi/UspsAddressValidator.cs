@@ -21,16 +21,15 @@ namespace AddressValidation.Core.UspsApi
 {
 	public class UspsAddressValidator : IUspsAddressValidator
 	{
+		public const string HttpClientName = "usps";
 		private readonly HttpClient client;
-		private readonly string clientRequestUri;
 		private readonly ILogger logger;
 		private readonly string userId;
 
 		public UspsAddressValidator(ILogger<UspsAddressValidator> logger, IConfiguration config, IHttpClientFactory httpClientFactory)
 		{
 			userId = config.GetConnectionString("UspsUserId");
-			clientRequestUri = config.GetConnectionString("UspsEndpoint");
-			client = httpClientFactory.CreateClient();
+			client = httpClientFactory.CreateClient(HttpClientName);
 			this.logger = logger;
 		}
 
@@ -95,9 +94,8 @@ namespace AddressValidation.Core.UspsApi
 		{
 			try
 			{
-				string requestUri = clientRequestUri + WebUtility.UrlEncode(destination);
-
-				HttpResponseMessage response = await client.GetAsync(requestUri);
+				string query = $"?API=Verify&XML={WebUtility.UrlEncode(destination)}";
+				HttpResponseMessage response = await client.GetAsync(query);
 
 				if (response.IsSuccessStatusCode)
 				{
