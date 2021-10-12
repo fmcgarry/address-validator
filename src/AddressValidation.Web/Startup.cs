@@ -50,6 +50,7 @@ namespace AddressValidation.Web
 			{
 				c.SwaggerDoc("v1", new OpenApiInfo { Title = "AddressValidation.Web", Version = "v1" });
 			});
+			services.AddHttpClient();
 			services.AddTransient<IAddressValidator, Core.AddressValidator>();
 			services.AddTransient<ICrmRepository, CrmRepository>();
 			services.AddTransient<ICrmRepository, CrmRepository>();

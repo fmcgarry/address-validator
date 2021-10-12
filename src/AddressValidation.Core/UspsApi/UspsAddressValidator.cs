@@ -15,19 +15,23 @@ using Microsoft.Extensions.Configuration;
 using AddressValidator.Core.UspsApi.Interfaces;
 using AddressValidation.Core.UspsApi.Responses;
 using AddressValidation.Core.UspsApi.Requests;
+using Microsoft.Extensions.Logging;
 
 namespace AddressValidation.Core.UspsApi
 {
 	public class UspsAddressValidator : IUspsAddressValidator
 	{
-		private static readonly HttpClient client = new();
-		private readonly IConfiguration config;
+		private readonly HttpClient client;
+		private readonly string clientRequestUri;
+		private readonly ILogger logger;
 		private readonly string userId;
 
-		public UspsAddressValidator(IConfiguration config)
+		public UspsAddressValidator(ILogger<UspsAddressValidator> logger, IConfiguration config, IHttpClientFactory httpClientFactory)
 		{
-			this.config = config;
-			userId = this.config.GetConnectionString("UspsUserId");
+			userId = config.GetConnectionString("UspsUserId");
+			clientRequestUri = config.GetConnectionString("UspsEndpoint");
+			client = httpClientFactory.CreateClient();
+			this.logger = logger;
 		}
 
 		public async Task<Customer> ValidateCustomerAddressAsync(Customer customer)
@@ -48,16 +52,19 @@ namespace AddressValidation.Core.UspsApi
 
 			string rawRequest = SerializeToXmlString(request);
 
-			string rawResponse = await SendRequestAsync(rawRequest);
+			string rawResponse = await SendGetRequestAsync(rawRequest);
 
-			AddressValidateResponse response = DeserializeFromXmlString<AddressValidateResponse>(rawResponse);
-
-			if (response.Address.IsValid)
+			if (rawResponse != "")
 			{
-				customer.Address.City = response.Address.City;
-				customer.Address.Line1 = response.Address.Address2;
-				customer.Address.PostalCode = $"{response.Address.Zip5}-{response.Address.Zip4}";
-				customer.Address.State = response.Address.State;
+				AddressValidateResponse response = DeserializeFromXmlString<AddressValidateResponse>(rawResponse);
+
+				if (response.Address.IsValid)
+				{
+					customer.Address.City = response.Address.City;
+					customer.Address.Line1 = response.Address.Address2;
+					customer.Address.PostalCode = $"{response.Address.Zip5}-{response.Address.Zip4}";
+					customer.Address.State = response.Address.State;
+				}
 			}
 
 			return customer;
@@ -84,18 +91,25 @@ namespace AddressValidation.Core.UspsApi
 			return sb.ToString();
 		}
 
-		private async Task<string> SendRequestAsync(string destination)
+		private async Task<string> SendGetRequestAsync(string destination)
 		{
 			try
 			{
-				HttpResponseMessage response = await client.GetAsync(config.GetConnectionString("UspsEndpoint") + WebUtility.UrlEncode(destination));
+				string requestUri = clientRequestUri + WebUtility.UrlEncode(destination);
 
-				var quoteResponse = await response.Content.ReadAsStringAsync();
-				return quoteResponse;
+				HttpResponseMessage response = await client.GetAsync(requestUri);
+
+				if (response.IsSuccessStatusCode)
+				{
+					string stringResponse = await response.Content.ReadAsStringAsync();
+					return stringResponse;
+				}
+
+				return "";
 			}
 			catch (Exception e)
 			{
-				Console.WriteLine(e);
+				logger.LogError(e.ToString());
 				throw;
 			}
 		}
