@@ -5,7 +5,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddSomethingCustom(builder.Configuration);
-builder.Services.Configure<>(builder.Configuration.get)
+builder.Services.Configure<HomePageOptions>(builder.Configuration.GetSection("Features:HomePage"));
 
 var app = builder.Build();
 
