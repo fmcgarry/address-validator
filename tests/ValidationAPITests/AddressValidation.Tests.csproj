@@ -18,7 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\AddressValidation.Core\AddressValidation.Core.csproj" />
-    <ProjectReference Include="..\..\src\AddressValidation.Web\AddressValidation.Web.csproj" />
+    <ProjectReference Include="..\..\src\AddressValidation.Web\AddressValidation.Api.csproj" />
   </ItemGroup>
 
 </Project>
