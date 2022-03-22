@@ -5,7 +5,7 @@ VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressValidation.Core", "src\AddressValidation.Core\AddressValidation.Core.csproj", "{9222E9E4-38B9-4A4F-8A31-997F9B813CD4}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressValidation.Api", "src\AddressValidation.Web\AddressValidation.Api.csproj", "{448E46D1-C0C7-4787-8DAD-C0BA2751BFDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressValidation.Api", "src\AddressValidation.Api\AddressValidation.Api.csproj", "{448E46D1-C0C7-4787-8DAD-C0BA2751BFDB}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{7197A3F8-D808-4126-A6F4-09F8949D439C}"
 EndProject
@@ -13,7 +13,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B9890D79
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AddressValidation.Tests", "tests\ValidationAPITests\AddressValidation.Tests.csproj", "{7F2C76CB-A4B7-432C-B367-E3360585E6B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Web", "AddressValidation.Web\AddressValidation.Web.csproj", "{245F06EF-536F-4312-BEEA-99AFBCEBBF1C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressValidation.Web", "src\AddressValidation.Web\AddressValidation.Web.csproj", "{245F06EF-536F-4312-BEEA-99AFBCEBBF1C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
